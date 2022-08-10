@@ -1,0 +1,75 @@
+{
+  "name": "radar",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run clean && webpack --config webpack/webpack.prod.js",
+    "dev": "npm run clean && webpack -w --config webpack/webpack.dev.js",
+    "clean": "rimraf dist",
+    "style": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "@metamask/eth-sig-util": "^4.0.1",
+    "assert": "^2.0.0",
+    "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
+    "clsx": "^1.1.1",
+    "crypto-browserify": "^3.12.0",
+    "css-loader": "^6.7.1",
+    "idb": "^7.0.2",
+    "nanoid": "^4.0.0",
+    "parse-domain": "^7.0.0",
+    "postcss-loader": "^7.0.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-markdown": "^8.0.3",
+    "react-router-dom": "^6.3.0",
+    "react-simplemde-editor": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "serve-index": "^1.9.1",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.24",
+    "webextension-polyfill": "^0.9.0",
+    "webextension-polyfill-ts": "^0.26.0",
+    "webpack-dev-server": "^4.9.2"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.183",
+    "@types/node": "17.0.30",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.3",
+    "@types/webextension-polyfill": "^0.9.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "eslint": "8.14.0",
+    "ethers": "^5.6.6",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "process": "^0.11.10",
+    "ts-loader": "^9.3.0",
+    "typescript": "4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "styles/**",
+        "pages/**",
+        "public/**",
+        "helpers/**"
+      ],
+      "ignore": [
+        "out",
+        "node_modules",
+        ".vscode"
+      ],
+      "extensions": [
+        "js",
+        "json"
+      ]
+    }
+  }
+}
