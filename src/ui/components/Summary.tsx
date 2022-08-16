@@ -34,10 +34,11 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
         const assetAmount = convertAmount(item, sigReqReport.addressContexts);
         const assetSafe = isSafelisted(item, sigReqReport.addressContexts);
 
-        const assetDirection: string = compareAddresses(
-          item.destination,
-          sigReqReport.actionContext.from
+        const assetDirection: string = ["All", "Revoke"].some(
+          (element) => element === assetAmount
         )
+          ? " "
+          : compareAddresses(item.destination, sigReqReport.actionContext.from)
           ? "+"
           : "-";
 
@@ -68,7 +69,9 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
               <div className="no-wrap px-4 self-center font-semibold text-xs tracking-wide justify-end  text-right">
                 <p
                   className={
-                    assetDirection === "+" ? "text-green-500" : "text-red-500"
+                    ["+", " "].some((element) => element === assetDirection)
+                      ? "text-green-500"
+                      : "text-red-500"
                   }
                 >
                   {assetDirection}
