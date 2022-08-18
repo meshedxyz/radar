@@ -15,6 +15,8 @@ import {
 
 const Summary = (sigReqReport: SignatureRequestReport) => {
   const { updateWindow } = useContext(stateContext);
+  const REVOKE = "Revoke";
+  const ALL = "All";
 
   useEffect(() => {
     updateWindow("ContextBasicAction");
@@ -34,7 +36,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
         const assetAmount = convertAmount(item, sigReqReport.addressContexts);
         const assetSafe = isSafelisted(item, sigReqReport.addressContexts);
 
-        const assetDirection: string = ["All", "Revoke"].some(
+        const assetDirection: string = [REVOKE].some(
           (element) => element === assetAmount
         )
           ? " "
@@ -77,7 +79,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                   {assetDirection}
                   {assetAmount}
                 </p>
-                {item.asset?.tokenId && item.asset?.tokenId !== "All" ? (
+                {item.asset?.tokenId && item.asset?.tokenId !== ALL ? (
                   <p
                     className={
                       (assetDirection === "+"

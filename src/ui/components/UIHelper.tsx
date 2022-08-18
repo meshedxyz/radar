@@ -75,18 +75,18 @@ export function convertAmount(
   addressContexts?: { [address: string]: AddressContext }
 ) {
   if (
-    modification.asset?.amount === UINT256_MAX ||
-    modification.asset?.amount === ALL_AMOUNT
-  ) {
-    return "All";
-  }
-
-  if (
     modification.type === ActionType.Unapprove ||
     (modification.type === ActionType.Approve &&
       modification.asset?.amount === "0")
   ) {
     return "Revoke";
+  }
+
+  if (
+    modification.asset?.amount === UINT256_MAX ||
+    modification.asset?.amount === ALL_AMOUNT
+  ) {
+    return "All";
   }
 
   if (modification?.asset?.type === AssetType.Token) {
