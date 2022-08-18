@@ -60,6 +60,7 @@ export const SET_IS_FTU = "set-is-first-time-user";
 export const ETHEREUM_REQUEST = "linked-ethereum-rpc-request";
 export const ETHEREUM_EVENT = "linked-ethereum-event";
 export const FTUE_STORAGE_KEY = "radar-first-time-user";
+export const REVOKE = "Revoke";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const ZERO_HASH =

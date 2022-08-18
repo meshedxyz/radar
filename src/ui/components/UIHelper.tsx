@@ -9,7 +9,7 @@ import {
 } from "../../constants/API";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import Icons, { iconStates } from "./Icons";
-import { ALL_AMOUNT, UINT256_MAX } from "../../constants/Types";
+import { ALL_AMOUNT, REVOKE, UINT256_MAX } from "../../constants/Types";
 
 type helperElement = {
   riskType: string;
@@ -79,14 +79,14 @@ export function convertAmount(
     (modification.type === ActionType.Approve &&
       modification.asset?.amount === "0")
   ) {
-    return "Revoke";
+    return REVOKE;
   }
 
   if (
     modification.asset?.amount === UINT256_MAX ||
     modification.asset?.amount === ALL_AMOUNT
   ) {
-    return "All";
+    return ALL_AMOUNT;
   }
 
   if (modification?.asset?.type === AssetType.Token) {

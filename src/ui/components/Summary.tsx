@@ -12,11 +12,10 @@ import {
   getAssetType,
   isSafelisted,
 } from "./UIHelper";
+import { ALL_AMOUNT, REVOKE } from "../../constants/Types";
 
 const Summary = (sigReqReport: SignatureRequestReport) => {
   const { updateWindow } = useContext(stateContext);
-  const REVOKE = "Revoke";
-  const ALL = "All";
 
   useEffect(() => {
     updateWindow("ContextBasicAction");
@@ -79,7 +78,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                   {assetDirection}
                   {assetAmount}
                 </p>
-                {item.asset?.tokenId && item.asset?.tokenId !== ALL ? (
+                {item.asset?.tokenId && item.asset?.tokenId !== ALL_AMOUNT ? (
                   <p
                     className={
                       (assetDirection === "+"
