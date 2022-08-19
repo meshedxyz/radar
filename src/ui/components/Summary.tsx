@@ -45,7 +45,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
         return (
           <div className="text-zinc-50 text-xl w-full my-2 px-2 " key={index}>
             <div className="flex w-full justify-between  h-16 rounded-lg bg-slate-900  shadow-lg">
-              <div className=" shrink no-wrap px-4 self-center">
+              <div className=" shrink no-wrap pl-4 self-center">
                 <p className="flex font-semibold text-base tracking-wide truncate">
                   {assetName}
                   <BadgeCheckIcon
@@ -66,7 +66,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                   {assetType}
                 </p>
               </div>
-              <div className="no-wrap px-4 self-center font-semibold text-xs tracking-wide justify-end  text-right">
+              <div className="no-wrap pr-4 self-center font-semibold text-xs tracking-wide justify-end  text-right">
                 <p
                   className={
                     ["+", " "].some((element) => element === assetDirection)
@@ -83,7 +83,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                       (assetDirection === "+"
                         ? "text-green-500/50"
                         : "text-red-500/50") +
-                      " font-medium text-xs tracking-tight text-right justify-end -mt-1"
+                      " font-medium text-xs tracking-tight text-right justify-end -mt-1 truncate w-14"
                     }
                   >
                     #{item.asset?.tokenId}
