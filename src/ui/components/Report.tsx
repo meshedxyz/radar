@@ -4,9 +4,10 @@ import clsx from "clsx";
 import { stateContext } from "../App";
 import { submitReport, updateTrustList } from "../modules/DataProvider";
 import { SignatureRequestReport, TrustListStatus } from "../../constants/API";
+import { updateWindow } from "./UIHelper";
 
 const Report = (props: SignatureRequestReport) => {
-  const { updateWindow, form } = useContext(stateContext);
+  const { form } = useContext(stateContext);
   const [userReport, setUserReport] = useState<string>("");
   const [reportSubmitted, setReportSubmitted] = useState<boolean>(false);
 
@@ -28,7 +29,7 @@ const Report = (props: SignatureRequestReport) => {
   }
 
   useEffect(() => {
-    updateWindow();
+    updateWindow("body");
   });
 
   const buttonStyle = clsx(

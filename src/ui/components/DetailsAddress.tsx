@@ -1,9 +1,9 @@
 import Icons, { iconStates } from "./Icons";
-import { findingsHelper, truncateAddress } from "./UIHelper";
+import { findingsHelper, truncateAddress, updateWindow } from "./UIHelper";
 import { loadingMessage } from "./UIHelper";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
-import { stateContext } from "../App";
+
 import { AddressContext, AddressType } from "../../constants/API";
 
 interface Props {
@@ -14,10 +14,8 @@ const DetailsAddress = (props: Props) => {
   const [toggleable, setToggleable] = useState(false);
   const [active, setActive] = useState(false);
 
-  const { updateWindow } = useContext(stateContext);
-
   useEffect(() => {
-    updateWindow();
+    updateWindow("body");
   });
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { getSigReqReport } from "./modules/DataProvider";
 import { SignatureRequestReport } from "../constants/API";
 import Home from "./pages/Home";
@@ -11,7 +11,6 @@ export const stateContext = createContext<any>(null);
 const App = () => {
   const [sigReqReport, setSigReqReport] = useState<SignatureRequestReport>();
   const [reportState, setReportState] = useState(FetchState.Loading);
-  const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getSigReqReport()
@@ -24,13 +23,6 @@ const App = () => {
       });
   }, []);
 
-  function updateWindow() {
-    const newSize = mainRef!.current!.clientHeight + 29;
-    if (mainRef && newSize != window.outerHeight) {
-      window.resizeTo(window.innerWidth, newSize);
-    }
-  }
-
   function screen() {
     if (reportState === FetchState.Failed) {
       return <Error error={sigReqReport?.error} />;
@@ -42,18 +34,12 @@ const App = () => {
   }
 
   return (
-    <div className=" bg-gradient-to-tr from-black to-slate-900 h-screen">
-      <stateContext.Provider
-        value={{
-          updateWindow,
-        }}
-      >
-        <main ref={mainRef} className="flex justify-center" id="body">
-          <div className="flex flex-wrap w-full sm:w-[377px] h-full">
-            {screen()}
-          </div>
-        </main>
-      </stateContext.Provider>
+    <div className="bg-gradient-to-tr from-black to-slate-900 h-screen">
+      <main className="flex justify-center" id="body">
+        <div className="flex flex-wrap w-full sm:w-[377px] h-full">
+          {screen()}
+        </div>
+      </main>
     </div>
   );
 };

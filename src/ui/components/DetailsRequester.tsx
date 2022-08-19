@@ -1,18 +1,16 @@
 import Icons, { iconStates } from "./Icons";
 import { SignatureRequestReport } from "../../constants/API";
-import { loadingMessage, findingsHelper } from "./UIHelper";
-import { useState, useContext, useEffect } from "react";
+import { loadingMessage, findingsHelper, updateWindow } from "./UIHelper";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
-import { stateContext } from "../App";
 import { truncateString } from "./UIHelper";
 
 const DetailsRequester = (signatureRequestReport: SignatureRequestReport) => {
   const { requesterContext } = signatureRequestReport;
   const [active, setActive] = useState(false);
-  const { updateWindow } = useContext(stateContext);
 
   useEffect(() => {
-    updateWindow();
+    updateWindow("body");
   });
 
   const iconStyle = clsx(

@@ -5,20 +5,19 @@ import {
   loadingMessage,
   translateAction,
   truncateAddress,
+  updateWindow,
 } from "./UIHelper";
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
-import { useEffect, useContext } from "react";
-import { stateContext } from "../App";
+import { useEffect } from "react";
 import { ZERO_ADDRESS } from "../../constants/Types";
 
 const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
-  const { updateWindow } = useContext(stateContext);
   const [active, setActive] = useState(false);
   const [toggleable, setToggleable] = useState(false);
 
   useEffect(() => {
-    updateWindow();
+    updateWindow("body");
   });
 
   useEffect(() => {

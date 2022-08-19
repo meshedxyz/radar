@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { isFirstTimeUser, setIsFirstTimeUser } from "../modules/DataProvider";
 import Carousel from "../components/FirstTimeUserCarousel";
 import { NavLink } from "react-router-dom";
+import { updateWindow } from "../components/UIHelper";
 
 const Menu = () => {
   const [firstTimeUser, setFirstTimeUser] = useState(false);
@@ -13,11 +14,11 @@ const Menu = () => {
   return firstTimeUser ? (
     <div className="flex flex-wrap w-[378px] bg-gradient-to-t from-slate-900 via-slate-800 to-slate-800 justify-center">
       <Carousel />
-
       <button
         onClick={() => {
           setIsFirstTimeUser().then(() => {
             setFirstTimeUser(false);
+            updateWindow("root");
           });
         }}
         className="mb-5 w-5/12 mt-2  border-4 border-slate-600 bg-slate-600 text-slate-300 hover:bg-slate-500 hover:text-slate-200 font-medium tracking-wide py-2 px-4 rounded-full font-body"
@@ -26,7 +27,7 @@ const Menu = () => {
       </button>
     </div>
   ) : (
-    <div className="w-full h-screen bg-gradient-to-t from-slate-900 via-slate-800 to-slate-800 shadow-xl shadow-gray-900/50 border-[0.25px] border-slate-700">
+    <div className="w-full bg-gradient-to-t from-slate-900 via-slate-800 to-slate-800 shadow-xl shadow-gray-900/50 border-[0.25px] border-slate-700">
       <div className="flex justify-center items-center flex-wrap w-[377px] h-full p-5">
         <div className="pb-5 flex w-full flex-wrap justify-center items-center">
           <div className="flex mt-6 mb-2 mx-3 justify-center h-3 w-3">

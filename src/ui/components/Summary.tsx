@@ -11,14 +11,13 @@ import {
   getAssetName,
   getAssetType,
   isSafelisted,
+  updateWindow,
 } from "./UIHelper";
 import { ALL_AMOUNT, REVOKE } from "../../constants/Types";
 
 const Summary = (sigReqReport: SignatureRequestReport) => {
-  const { updateWindow } = useContext(stateContext);
-
   useEffect(() => {
-    updateWindow("ContextBasicAction");
+    updateWindow("body");
   });
 
   const modificationsList =

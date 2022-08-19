@@ -1,11 +1,11 @@
 // import NextPage generic type
-import { useEffect, useState, useContext } from "react";
-import { stateContext } from "../App";
+import { useEffect, useState } from "react";
 import {
   compareAddresses,
   convertAmount,
   getAssetName,
   loadingMessage,
+  updateWindow,
 } from "./UIHelper";
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
@@ -19,7 +19,6 @@ import {
 const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   const [active, setActive] = useState(false);
   const [toggleable, setToggleable] = useState(false);
-  const { updateWindow } = useContext(stateContext);
 
   const iconStyle = clsx(
     {
@@ -44,7 +43,7 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   );
 
   useEffect(() => {
-    updateWindow();
+    updateWindow("body");
   });
 
   useEffect(() => {

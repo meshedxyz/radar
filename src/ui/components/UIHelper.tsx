@@ -329,3 +329,11 @@ export const compareAddresses = (
   }
   return addr1.toLowerCase() === addr2.toLowerCase();
 };
+
+export function updateWindow(element: string) {
+  const mainRef = document.getElementById(element);
+  const newSize = mainRef!.clientHeight + 29;
+  if (mainRef && newSize != window.outerHeight) {
+    window.resizeTo(window.innerWidth, newSize);
+  }
+}
