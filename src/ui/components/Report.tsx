@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import { stateContext } from "../App";
 import { submitReport, updateTrustList } from "../modules/DataProvider";
 import { SignatureRequestReport, TrustListStatus } from "../../constants/API";
 import { updateWindow } from "./UIHelper";
 
 const Report = (props: SignatureRequestReport) => {
-  const { form } = useContext(stateContext);
+  const form = useRef(null);
   const [userReport, setUserReport] = useState<string>("");
   const [reportSubmitted, setReportSubmitted] = useState<boolean>(false);
 
