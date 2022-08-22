@@ -33,6 +33,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
     uniqueModifications.map((item: AssetModification, index: number) => {
       const assetName: string = getAssetName(
         item,
+        sigReqReport.actionContext.chainId,
         sigReqReport.addressContexts
       );
       const assetType: string = getAssetType(
@@ -63,7 +64,7 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                   }
                 />
                 <a
-                  href={getAssetLink(item)}
+                  href={getAssetLink(item, sigReqReport.actionContext.chainId!)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

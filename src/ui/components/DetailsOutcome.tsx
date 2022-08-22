@@ -10,7 +10,10 @@ import {
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { ZERO_ADDRESS } from "../../constants/Types";
+import {
+  CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
+  ZERO_ADDRESS,
+} from "../../constants/Types";
 
 const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
   const [active, setActive] = useState(false);
@@ -67,7 +70,11 @@ const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
           <a
             className="animate-slide-in-blurred-left font-light pr-2 text-blue-300/75 underline decoration-blue-300/25"
             href={
-              "https://etherscan.io/address/" + sigReqReport.actionContext.to
+              CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[
+                sigReqReport.actionContext.chainId!
+              ] +
+              "/address/" +
+              sigReqReport.actionContext.to
             }
             target="_blank"
             rel="noreferrer"

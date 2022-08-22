@@ -69,6 +69,7 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
       (item: AssetModification, index: number) => {
         const assetName: string = getAssetName(
           item,
+          sigReqReport.actionContext.chainId,
           sigReqReport.addressContexts
         );
         const assetAmount = convertAmount(item, sigReqReport.addressContexts);
@@ -95,7 +96,11 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   function getNames(): string[] {
     return (
       sigReqReport.actionContext?.modifiedAssets?.map((m) => {
-        return getAssetName(m, sigReqReport.addressContexts);
+        return getAssetName(
+          m,
+          sigReqReport.actionContext.chainId,
+          sigReqReport.addressContexts
+        );
       }) || []
     );
   }

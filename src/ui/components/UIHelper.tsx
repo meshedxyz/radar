@@ -9,7 +9,13 @@ import {
 } from "../../constants/API";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import Icons, { iconStates } from "./Icons";
-import { ALL_AMOUNT, REVOKE, UINT256_MAX } from "../../constants/Types";
+import {
+  ALL_AMOUNT,
+  CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
+  nativeAssets,
+  REVOKE,
+  UINT256_MAX,
+} from "../../constants/Types";
 
 type helperElement = {
   riskType: string;
@@ -18,10 +24,14 @@ type helperElement = {
 
 export function getAssetName(
   item: AssetModification,
+  chainId?: string,
   addressContexts?: { [address: string]: AddressContext }
 ): string {
   if (item.asset?.type === AssetType.Ether) {
-    return "ETH";
+    if (chainId) {
+      return nativeAssets[chainId];
+    }
+    return "N/A";
   } else if (
     item.asset?.contract &&
     addressContexts &&
@@ -48,11 +58,15 @@ export function getAssetType(
   return "Unrecognized";
 }
 
-export function getAssetLink(item: AssetModification) {
+export function getAssetLink(item: AssetModification, chainId: string) {
   if (item.asset?.type === AssetType.Ether) {
-    return "https://etherscan.io/txs";
+    return CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] + "/txs";
   } else {
-    return "https://etherscan.io/address/" + item.asset?.contract;
+    return (
+      CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] +
+      "/address/" +
+      item.asset?.contract
+    );
   }
 }
 
@@ -180,37 +194,6 @@ export function auditHelper(
   return {
     riskType: "N/A",
     element: <a> N/A </a>,
-  };
-}
-
-export function verifiedHelper(
-  x: RequesterContext | null | undefined,
-  y: AddressContext
-): helperElement {
-  if (x?.safeList === true) {
-    return {
-      riskType: "Positive",
-      element: (
-        <a
-          className="text-green-100 font-light underline decoration-green-200/50"
-          href={"https://etherscan.io/address/" + y?.address + "#code"}
-          target="_blank"
-          rel="noreferrer"
-        >
-          View 1
-        </a>
-      ),
-    };
-  }
-  if (x?.safeList === false) {
-    return {
-      riskType: "Negative",
-      element: <a className="text-red-100 font-light">Contract Unverified</a>,
-    };
-  }
-  return {
-    riskType: "N/A",
-    element: <a></a>,
   };
 }
 

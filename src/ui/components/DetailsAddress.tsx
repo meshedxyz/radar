@@ -4,10 +4,16 @@ import { loadingMessage } from "./UIHelper";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-import { AddressContext, AddressType } from "../../constants/API";
+import {
+  ActionContext,
+  AddressContext,
+  AddressType,
+} from "../../constants/API";
+import { CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS } from "../../constants/Types";
 
 interface Props {
   addressContext: AddressContext;
+  actionContext: ActionContext;
 }
 
 const DetailsAddress = (props: Props) => {
@@ -95,7 +101,8 @@ const DetailsAddress = (props: Props) => {
             <a
               className="pl-1 animate-slide-in-blurred-left text-blue-300 font-normal tracking-normal font-display underline  decoration-slate-500"
               href={
-                "https://etherscan.io/address/" +
+                CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[props.actionContext.chainId!] +
+                "/address/" +
                 props.addressContext.address +
                 "#code"
               }

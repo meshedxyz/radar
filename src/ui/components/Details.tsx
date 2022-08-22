@@ -18,7 +18,10 @@ const Details = (signatureRequestReport: SignatureRequestReport) => {
       return Object.values(signatureRequestReport.addressContexts).map(
         (context: AddressContext, index: number) => (
           <div className="w-full" key={index}>
-            <DetailsContract addressContext={context} />
+            <DetailsContract
+              addressContext={context}
+              actionContext={signatureRequestReport.actionContext}
+            />
           </div>
         )
       );
