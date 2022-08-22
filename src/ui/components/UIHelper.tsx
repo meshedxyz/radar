@@ -12,7 +12,7 @@ import Icons, { iconStates } from "./Icons";
 import {
   ALL_AMOUNT,
   CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
-  nativeAssets,
+  NATIVE_ASSETS,
   REVOKE,
   UINT256_MAX,
 } from "../../constants/Types";
@@ -29,9 +29,9 @@ export function getAssetName(
 ): string {
   if (item.asset?.type === AssetType.Ether) {
     if (chainId) {
-      return nativeAssets[chainId];
+      return NATIVE_ASSETS[chainId];
     }
-    return "N/A";
+    return "Native";
   } else if (
     item.asset?.contract &&
     addressContexts &&

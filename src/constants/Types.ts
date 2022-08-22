@@ -87,7 +87,7 @@ export const RADAR_METHODS = new Set([
   "eth_sign",
 ]);
 
-export const nativeAssets: { [key: string]: string } = {
+export const NATIVE_ASSETS: { [key: string]: string } = {
   "1": "ETH",
   "10": "ETH",
   "137": "MATIC",
