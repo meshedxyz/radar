@@ -28,7 +28,6 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
       ])
     ).values(),
   ];
-  console.log(uniqueModifications);
 
   const modificationsList =
     uniqueModifications.map((item: AssetModification, index: number) => {
