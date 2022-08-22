@@ -52,7 +52,13 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
         : "-";
 
       return (
-        <div className="text-zinc-50 text-xl w-full my-2 px-2 " key={index}>
+        <div
+          className="text-zinc-50 text-xl w-full mt-4 mb-3 px-2 relative "
+          key={index}
+        >
+          <div className="absolute -top-3 left-4 bg-slate-800 rounded-full border-slate-700 border shadow">
+            <p className="text-xs px-3 py-0.5 text-slate-500">{item.type}</p>
+          </div>
           <div className="flex w-full justify-between  h-16 rounded-lg bg-slate-900  shadow-lg">
             <div className=" shrink no-wrap pl-4 self-center">
               <p className="flex font-semibold text-base tracking-wide truncate">
