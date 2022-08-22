@@ -87,10 +87,7 @@ export const RADAR_METHODS = new Set([
   "eth_sign",
 ]);
 
-interface NaitiveAssets {
-  [key: string]: string;
-}
-export const nativeAssets: NaitiveAssets = {
+export const nativeAssets: { [key: string]: string } = {
   "1": "ETH",
   "10": "ETH",
   "137": "MATIC",
@@ -99,10 +96,7 @@ export const nativeAssets: NaitiveAssets = {
   "43114": "AVAX",
 };
 
-interface ChainToScans {
-  [key: string]: string;
-}
-export const CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS: ChainToScans = {
+export const CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS: { [key: string]: string } = {
   "1": "https://etherscan.io",
   "10": "https://optimistic.etherscan.io",
   "137": "https://polygonscan.com",
