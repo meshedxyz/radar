@@ -6,6 +6,7 @@ import {
   ActionType,
   AssetModification,
   RiskFinding,
+  SignatureRequestReport,
 } from "../../constants/API";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import Icons, { iconStates } from "./Icons";
@@ -58,15 +59,16 @@ export function getAssetType(
   return "Unrecognized";
 }
 
-export function getAssetLink(item: AssetModification, chainId: string) {
-  if (item.asset?.type === AssetType.Ether) {
+export function getContractLink(
+  sigReqReport: SignatureRequestReport,
+  contract?: string | null,
+  assetType?: AssetType
+) {
+  const chainId = sigReqReport.actionContext.chainId!;
+  if (assetType === AssetType.Ether) {
     return CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] + "/txs";
   } else {
-    return (
-      CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] +
-      "/address/" +
-      item.asset?.contract
-    );
+    return CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] + "/address/" + contract;
   }
 }
 

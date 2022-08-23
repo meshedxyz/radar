@@ -21,7 +21,7 @@ const Details = (signatureRequestReport: SignatureRequestReport) => {
           <div className="w-full" key={index}>
             <DetailsContract
               addressContext={context}
-              actionContext={signatureRequestReport.actionContext}
+              sigRequestReport={signatureRequestReport}
             />
           </div>
         )

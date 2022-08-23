@@ -1,15 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { AssetModification, SignatureRequestReport } from "../../constants/API";
-import { stateContext } from "../App";
+
 import { BadgeCheckIcon, ExternalLinkIcon } from "@heroicons/react/solid";
 import Footer from "./Footer";
 import SummaryAnalysis from "./SummaryAnalysis";
 import {
   compareAddresses,
   convertAmount,
-  getAssetLink,
   getAssetName,
   getAssetType,
+  getContractLink,
   isSafelisted,
   updateWindow,
 } from "./UIHelper";
@@ -62,9 +62,10 @@ const Summary = (sigReqReport: SignatureRequestReport) => {
                     }
                   />
                   <a
-                    href={getAssetLink(
-                      item,
-                      sigReqReport.actionContext.chainId!
+                    href={getContractLink(
+                      sigReqReport,
+                      item.asset?.contract,
+                      item.asset?.type
                     )}
                     target="_blank"
                     rel="noopener noreferrer"

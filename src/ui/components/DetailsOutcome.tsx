@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SignatureRequestReport, ActionType } from "../../constants/API";
 import {
   findingsHelper,
+  getContractLink,
   loadingMessage,
   translateAction,
   truncateAddress,
@@ -10,11 +11,7 @@ import {
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
 import { useEffect } from "react";
-import {
-  CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
-  WindowRef,
-  ZERO_ADDRESS,
-} from "../../constants/Types";
+import { WindowRef, ZERO_ADDRESS } from "../../constants/Types";
 
 const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
   const [active, setActive] = useState(false);
@@ -70,13 +67,7 @@ const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
           To:{" "}
           <a
             className="animate-slide-in-blurred-left font-light pr-2 text-blue-300/75 underline decoration-blue-300/25"
-            href={
-              CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[
-                sigReqReport.actionContext.chainId!
-              ] +
-              "/address/" +
-              sigReqReport.actionContext.to
-            }
+            href={getContractLink(sigReqReport, sigReqReport.actionContext.to)}
             target="_blank"
             rel="noreferrer"
           >
