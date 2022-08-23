@@ -3,6 +3,7 @@ import { isFirstTimeUser, setIsFirstTimeUser } from "../modules/DataProvider";
 import Carousel from "../components/FirstTimeUserCarousel";
 import { NavLink } from "react-router-dom";
 import { updateWindow } from "../components/UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Menu = () => {
   const [firstTimeUser, setFirstTimeUser] = useState(false);
@@ -18,7 +19,7 @@ const Menu = () => {
         onClick={() => {
           setIsFirstTimeUser().then(() => {
             setFirstTimeUser(false);
-            updateWindow("root");
+            updateWindow(WindowRef.root);
           });
         }}
         className="mb-5 w-5/12 mt-2  border-4 border-slate-600 bg-slate-600 text-slate-300 hover:bg-slate-500 hover:text-slate-200 font-medium tracking-wide py-2 px-4 rounded-full font-body"

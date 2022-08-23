@@ -4,7 +4,7 @@ import { SignatureRequestReport } from "../constants/API";
 import Home from "./pages/Home";
 import Loading from "./pages/Loading";
 import Error from "./pages/Error";
-import { FetchState } from "../constants/Types";
+import { FetchState, WindowRef } from "../constants/Types";
 
 export const stateContext = createContext<any>(null);
 
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <div className="bg-gradient-to-tr from-black to-slate-900 h-screen">
-      <main className="flex justify-center" id="body">
+      <main className="flex justify-center" id={WindowRef.body}>
         <div className="flex flex-wrap w-full sm:w-[377px] h-full">
           {screen()}
         </div>

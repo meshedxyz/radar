@@ -15,6 +15,7 @@ import {
   ActionType,
   AssetModification,
 } from "../../constants/API";
+import { WindowRef } from "../../constants/Types";
 
 const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   const [active, setActive] = useState(false);
@@ -43,7 +44,7 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   );
 
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {

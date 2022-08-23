@@ -5,6 +5,7 @@ import { stateContext } from "../App";
 import { submitReport, updateTrustList } from "../modules/DataProvider";
 import { SignatureRequestReport, TrustListStatus } from "../../constants/API";
 import { updateWindow } from "./UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Report = (props: SignatureRequestReport) => {
   const form = useRef(null);
@@ -29,7 +30,7 @@ const Report = (props: SignatureRequestReport) => {
   }
 
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   const buttonStyle = clsx(

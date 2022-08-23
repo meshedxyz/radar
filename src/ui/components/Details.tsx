@@ -7,10 +7,11 @@ import { useEffect } from "react";
 import Footer from "./Footer";
 import DetailOutcome from "./DetailsOutcome";
 import { updateWindow } from "./UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Details = (signatureRequestReport: SignatureRequestReport) => {
   useEffect(() => {
-    updateWindow("root");
+    updateWindow(WindowRef.root);
   });
 
   function addressContexts() {

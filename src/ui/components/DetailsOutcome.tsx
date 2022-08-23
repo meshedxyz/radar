@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import {
   CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
+  WindowRef,
   ZERO_ADDRESS,
 } from "../../constants/Types";
 
@@ -20,7 +21,7 @@ const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
   const [toggleable, setToggleable] = useState(false);
 
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {

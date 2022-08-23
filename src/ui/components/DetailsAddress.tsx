@@ -9,7 +9,10 @@ import {
   AddressContext,
   AddressType,
 } from "../../constants/API";
-import { CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS } from "../../constants/Types";
+import {
+  CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
+  WindowRef,
+} from "../../constants/Types";
 
 interface Props {
   addressContext: AddressContext;
@@ -21,7 +24,7 @@ const DetailsAddress = (props: Props) => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {

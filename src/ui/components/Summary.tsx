@@ -13,11 +13,11 @@ import {
   isSafelisted,
   updateWindow,
 } from "./UIHelper";
-import { ALL_AMOUNT, REVOKE } from "../../constants/Types";
+import { ALL_AMOUNT, REVOKE, WindowRef } from "../../constants/Types";
 
 const Summary = (sigReqReport: SignatureRequestReport) => {
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   const modificationsList =

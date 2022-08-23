@@ -4,13 +4,14 @@ import { loadingMessage, findingsHelper, updateWindow } from "./UIHelper";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 import { truncateString } from "./UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const DetailsRequester = (signatureRequestReport: SignatureRequestReport) => {
   const { requesterContext } = signatureRequestReport;
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    updateWindow("body");
+    updateWindow(WindowRef.body);
   });
 
   const iconStyle = clsx(

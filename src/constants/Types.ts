@@ -49,6 +49,11 @@ export enum FetchState {
   Failed,
 }
 
+export enum WindowRef {
+  root = "root",
+  body = "body"
+}
+
 export const RADAR_EVENT = "radar-event";
 export const SUBMIT_REPORT_REQUEST = "submit-report";
 export const GET_SIG_REQ_REPORT = "get-signature-request-report";
@@ -104,3 +109,4 @@ export const CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS: { [key: string]: string } = {
   "42161": "https://arbiscan.io",
   "43114": "https://snowtrace.io"
 }
+
