@@ -4,8 +4,9 @@ import { StrictMode } from "react";
 import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
 import Menu from "./pages/Menu";
 import TrustList from "./pages/TrustList";
+import { WindowRef } from "../constants/Types";
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById(WindowRef.root)!).render(
   <StrictMode>
     <Router>
       <Routes>

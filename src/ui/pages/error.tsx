@@ -1,17 +1,17 @@
-import { useContext, useState } from "react";
-import { stateContext } from "../App";
+import { useState } from "react";
 
 import { submitReport } from "../modules/DataProvider";
 import { useEffect } from "react";
 import clsx from "clsx";
+import { updateWindow } from "../components/UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Error = (props: { error?: string }) => {
   const [userReport, setUserReport] = useState<string>("");
   const [reportSubmitted, setReportSubmitted] = useState<boolean>(false);
-  const { updateWindow } = useContext(stateContext);
 
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.body);
   });
 
   const formStyle = clsx(

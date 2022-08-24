@@ -2,16 +2,16 @@
 import { AddressContext, SignatureRequestReport } from "../../constants/API";
 import DetailsContract from "./DetailsAddress";
 import DetailsRequester from "./DetailsRequester";
-import { useContext, useEffect } from "react";
-import { stateContext } from "../App";
+import { useEffect } from "react";
+
 import Footer from "./Footer";
 import DetailOutcome from "./DetailsOutcome";
+import { updateWindow } from "./UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Details = (signatureRequestReport: SignatureRequestReport) => {
-  const { updateWindow } = useContext(stateContext);
-
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.root);
   });
 
   function addressContexts() {
@@ -19,7 +19,10 @@ const Details = (signatureRequestReport: SignatureRequestReport) => {
       return Object.values(signatureRequestReport.addressContexts).map(
         (context: AddressContext, index: number) => (
           <div className="w-full" key={index}>
-            <DetailsContract addressContext={context} />
+            <DetailsContract
+              addressContext={context}
+              sigRequestReport={signatureRequestReport}
+            />
           </div>
         )
       );

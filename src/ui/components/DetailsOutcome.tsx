@@ -2,23 +2,23 @@ import { useState } from "react";
 import { SignatureRequestReport, ActionType } from "../../constants/API";
 import {
   findingsHelper,
+  getContractLink,
   loadingMessage,
   translateAction,
   truncateAddress,
+  updateWindow,
 } from "./UIHelper";
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
-import { useEffect, useContext } from "react";
-import { stateContext } from "../App";
-import { ZERO_ADDRESS } from "../../constants/Types";
+import { useEffect } from "react";
+import { WindowRef, ZERO_ADDRESS } from "../../constants/Types";
 
 const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
-  const { updateWindow } = useContext(stateContext);
   const [active, setActive] = useState(false);
   const [toggleable, setToggleable] = useState(false);
 
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {
@@ -67,9 +67,7 @@ const DetailOutcome = (sigReqReport: SignatureRequestReport) => {
           To:{" "}
           <a
             className="animate-slide-in-blurred-left font-light pr-2 text-blue-300/75 underline decoration-blue-300/25"
-            href={
-              "https://etherscan.io/address/" + sigReqReport.actionContext.to
-            }
+            href={getContractLink(sigReqReport, sigReqReport.actionContext.to)}
             target="_blank"
             rel="noreferrer"
           >

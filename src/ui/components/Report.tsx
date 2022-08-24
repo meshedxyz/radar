@@ -1,12 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import { stateContext } from "../App";
 import { submitReport, updateTrustList } from "../modules/DataProvider";
 import { SignatureRequestReport, TrustListStatus } from "../../constants/API";
+import { updateWindow } from "./UIHelper";
+import { WindowRef } from "../../constants/Types";
 
 const Report = (props: SignatureRequestReport) => {
-  const { updateWindow, form } = useContext(stateContext);
+  const form = useRef(null);
   const [userReport, setUserReport] = useState<string>("");
   const [reportSubmitted, setReportSubmitted] = useState<boolean>(false);
 
@@ -28,7 +30,7 @@ const Report = (props: SignatureRequestReport) => {
   }
 
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.body);
   });
 
   const buttonStyle = clsx(

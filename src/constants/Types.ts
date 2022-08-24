@@ -49,6 +49,11 @@ export enum FetchState {
   Failed,
 }
 
+export enum WindowRef {
+  root = "root",
+  body = "body"
+}
+
 export const RADAR_EVENT = "radar-event";
 export const SUBMIT_REPORT_REQUEST = "submit-report";
 export const GET_SIG_REQ_REPORT = "get-signature-request-report";
@@ -60,6 +65,7 @@ export const SET_IS_FTU = "set-is-first-time-user";
 export const ETHEREUM_REQUEST = "linked-ethereum-rpc-request";
 export const ETHEREUM_EVENT = "linked-ethereum-event";
 export const FTUE_STORAGE_KEY = "radar-first-time-user";
+export const REVOKE = "Revoke";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const ZERO_HASH =
@@ -85,3 +91,22 @@ export const RADAR_METHODS = new Set([
   "personal_sign",
   "eth_sign",
 ]);
+
+export const NATIVE_ASSETS: { [key: string]: string } = {
+  "1": "ETH",
+  "10": "ETH",
+  "137": "MATIC",
+  "250": "FTM",
+  "42161": "ETH",
+  "43114": "AVAX",
+};
+
+export const CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS: { [key: string]: string } = {
+  "1": "https://etherscan.io",
+  "10": "https://optimistic.etherscan.io",
+  "137": "https://polygonscan.com",
+  "250": "https://ftmscan.com",
+  "42161": "https://arbiscan.io",
+  "43114": "https://snowtrace.io"
+}
+

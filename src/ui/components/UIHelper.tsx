@@ -6,10 +6,17 @@ import {
   ActionType,
   AssetModification,
   RiskFinding,
+  SignatureRequestReport,
 } from "../../constants/API";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import Icons, { iconStates } from "./Icons";
-import { ALL_AMOUNT, UINT256_MAX } from "../../constants/Types";
+import {
+  ALL_AMOUNT,
+  CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS,
+  NATIVE_ASSETS,
+  REVOKE,
+  UINT256_MAX,
+} from "../../constants/Types";
 
 type helperElement = {
   riskType: string;
@@ -18,10 +25,14 @@ type helperElement = {
 
 export function getAssetName(
   item: AssetModification,
+  chainId?: string,
   addressContexts?: { [address: string]: AddressContext }
 ): string {
   if (item.asset?.type === AssetType.Ether) {
-    return "ETH";
+    if (chainId) {
+      return NATIVE_ASSETS[chainId];
+    }
+    return "Native";
   } else if (
     item.asset?.contract &&
     addressContexts &&
@@ -48,11 +59,16 @@ export function getAssetType(
   return "Unrecognized";
 }
 
-export function getAssetLink(item: AssetModification) {
-  if (item.asset?.type === AssetType.Ether) {
-    return "https://etherscan.io/txs";
+export function getContractLink(
+  sigReqReport: SignatureRequestReport,
+  contract?: string | null,
+  assetType?: AssetType
+) {
+  const chainId = sigReqReport.actionContext.chainId!;
+  if (assetType === AssetType.Ether) {
+    return CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] + "/txs";
   } else {
-    return "https://etherscan.io/address/" + item.asset?.contract;
+    return CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS[chainId] + "/address/" + contract;
   }
 }
 
@@ -75,18 +91,18 @@ export function convertAmount(
   addressContexts?: { [address: string]: AddressContext }
 ) {
   if (
-    modification.asset?.amount === UINT256_MAX ||
-    modification.asset?.amount === ALL_AMOUNT
-  ) {
-    return "All";
-  }
-
-  if (
     modification.type === ActionType.Unapprove ||
     (modification.type === ActionType.Approve &&
       modification.asset?.amount === "0")
   ) {
-    return "Revoke";
+    return REVOKE;
+  }
+
+  if (
+    modification.asset?.amount === UINT256_MAX ||
+    modification.asset?.amount === ALL_AMOUNT
+  ) {
+    return ALL_AMOUNT;
   }
 
   if (modification?.asset?.type === AssetType.Token) {
@@ -180,37 +196,6 @@ export function auditHelper(
   return {
     riskType: "N/A",
     element: <a> N/A </a>,
-  };
-}
-
-export function verifiedHelper(
-  x: RequesterContext | null | undefined,
-  y: AddressContext
-): helperElement {
-  if (x?.safeList === true) {
-    return {
-      riskType: "Positive",
-      element: (
-        <a
-          className="text-green-100 font-light underline decoration-green-200/50"
-          href={"https://etherscan.io/address/" + y?.address + "#code"}
-          target="_blank"
-          rel="noreferrer"
-        >
-          View 1
-        </a>
-      ),
-    };
-  }
-  if (x?.safeList === false) {
-    return {
-      riskType: "Negative",
-      element: <a className="text-red-100 font-light">Contract Unverified</a>,
-    };
-  }
-  return {
-    riskType: "N/A",
-    element: <a></a>,
   };
 }
 
@@ -329,3 +314,11 @@ export const compareAddresses = (
   }
   return addr1.toLowerCase() === addr2.toLowerCase();
 };
+
+export function updateWindow(element: string) {
+  const mainRef = document.getElementById(element);
+  const newSize = mainRef!.clientHeight + 29;
+  if (mainRef && newSize != window.outerHeight) {
+    window.resizeTo(window.innerWidth, newSize);
+  }
+}

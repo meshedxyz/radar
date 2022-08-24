@@ -1,28 +1,37 @@
 import Icons, { iconStates } from "./Icons";
-import { findingsHelper, truncateAddress } from "./UIHelper";
+import {
+  findingsHelper,
+  getContractLink,
+  truncateAddress,
+  updateWindow,
+} from "./UIHelper";
 import { loadingMessage } from "./UIHelper";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
-import { stateContext } from "../App";
-import { AddressContext, AddressType } from "../../constants/API";
+
+import {
+  AddressContext,
+  AddressType,
+  SignatureRequestReport,
+} from "../../constants/API";
+import { WindowRef } from "../../constants/Types";
 
 interface Props {
   addressContext: AddressContext;
+  sigRequestReport: SignatureRequestReport;
 }
 
-const DetailsAddress = (props: Props) => {
+const DetailsAddress = ({ addressContext, sigRequestReport }: Props) => {
   const [toggleable, setToggleable] = useState(false);
   const [active, setActive] = useState(false);
 
-  const { updateWindow } = useContext(stateContext);
-
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {
-    if (props.addressContext?.findings) {
-      const expandable = props.addressContext.findings.length >= 1;
+    if (addressContext?.findings) {
+      const expandable = addressContext.findings.length >= 1;
       setActive(expandable);
       setToggleable(expandable);
     }
@@ -51,8 +60,8 @@ const DetailsAddress = (props: Props) => {
   );
 
   function toggleAccordion() {
-    if (props.addressContext?.findings) {
-      if (props.addressContext.findings.length >= 1)
+    if (addressContext?.findings) {
+      if (addressContext.findings.length >= 1)
         setActive((prevState) => !prevState);
     } else {
       setToggleable(false);
@@ -61,12 +70,10 @@ const DetailsAddress = (props: Props) => {
   }
 
   function findings() {
-    return props.addressContext?.findings ? (
+    return addressContext?.findings ? (
       <>
         <a className="font-xs transition-opacity text-slate-500 w-full">
-          <p className="pl-0.5 pr-4">
-            Address Type: {props.addressContext?.type}
-          </p>
+          <p className="pl-0.5 pr-4">Address Type: {addressContext?.type}</p>
         </a>
         <div className={findingsStyle}>
           <div className="pt-2 font-xs transition-opacity text-slate-400 w-full">
@@ -82,7 +89,7 @@ const DetailsAddress = (props: Props) => {
     );
   }
 
-  const findingsList = findingsHelper(props.addressContext?.findings);
+  const findingsList = findingsHelper(addressContext?.findings);
 
   return (
     <div className="w-full px-2 cursor-pointer">
@@ -90,23 +97,17 @@ const DetailsAddress = (props: Props) => {
         <div className="flex w-full flex-wrap">
           <p className="w-full text-sm font-body font-light tracking-wide text-slate-300">
             {" "}
-            {props.addressContext.type === AddressType.EOA
+            {addressContext.type === AddressType.EOA
               ? "Account"
-              : "Contract"}
-            :{" "}
+              : "Contract"}:{" "}
             <a
               className="pl-1 animate-slide-in-blurred-left text-blue-300 font-normal tracking-normal font-display underline  decoration-slate-500"
-              href={
-                "https://etherscan.io/address/" +
-                props.addressContext.address +
-                "#code"
-              }
+              href={getContractLink(sigRequestReport, addressContext.address)}
               target="_blank"
               rel="noreferrer"
             >
               {" "}
-              {truncateAddress(props.addressContext.name, 24) ||
-                "Name Unavailable"}
+              {truncateAddress(addressContext.name, 24) || "Name Unavailable"}
             </a>
           </p>
           <div

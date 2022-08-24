@@ -1,11 +1,11 @@
 // import NextPage generic type
-import { useEffect, useState, useContext } from "react";
-import { stateContext } from "../App";
+import { useEffect, useState } from "react";
 import {
   compareAddresses,
   convertAmount,
   getAssetName,
   loadingMessage,
+  updateWindow,
 } from "./UIHelper";
 import Icons, { iconStates } from "./Icons";
 import clsx from "clsx";
@@ -15,11 +15,11 @@ import {
   ActionType,
   AssetModification,
 } from "../../constants/API";
+import { WindowRef } from "../../constants/Types";
 
 const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   const [active, setActive] = useState(false);
   const [toggleable, setToggleable] = useState(false);
-  const { updateWindow } = useContext(stateContext);
 
   const iconStyle = clsx(
     {
@@ -44,7 +44,7 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   );
 
   useEffect(() => {
-    updateWindow();
+    updateWindow(WindowRef.body);
   });
 
   useEffect(() => {
@@ -70,6 +70,7 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
       (item: AssetModification, index: number) => {
         const assetName: string = getAssetName(
           item,
+          sigReqReport.actionContext.chainId,
           sigReqReport.addressContexts
         );
         const assetAmount = convertAmount(item, sigReqReport.addressContexts);
@@ -96,7 +97,11 @@ const DetailsModification = (sigReqReport: SignatureRequestReport) => {
   function getNames(): string[] {
     return (
       sigReqReport.actionContext?.modifiedAssets?.map((m) => {
-        return getAssetName(m, sigReqReport.addressContexts);
+        return getAssetName(
+          m,
+          sigReqReport.actionContext.chainId,
+          sigReqReport.addressContexts
+        );
       }) || []
     );
   }
