@@ -1,14 +1,14 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import { stateContext } from "../App";
 import { submitReport, updateTrustList } from "../modules/DataProvider";
 import { SignatureRequestReport, TrustListStatus } from "../../constants/API";
 import { updateWindow } from "./UIHelper";
 import { WindowRef } from "../../constants/Types";
 
-const Report = (props: SignatureRequestReport) => {
+const Notify = (props: SignatureRequestReport) => {
   const form = useRef(null);
+
   const [userReport, setUserReport] = useState<string>("");
   const [reportSubmitted, setReportSubmitted] = useState<boolean>(false);
 
@@ -116,4 +116,4 @@ const Report = (props: SignatureRequestReport) => {
   );
 };
 
-export default Report;
+export default Notify;

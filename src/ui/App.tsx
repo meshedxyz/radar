@@ -1,7 +1,8 @@
 import { useState, useEffect, createContext } from "react";
-import { getSigReqReport } from "./modules/DataProvider";
+import { addReportListener, getInitialReport } from "./modules/DataProvider";
+
 import { SignatureRequestReport } from "../constants/API";
-import Home from "./pages/Home";
+import Report from "./pages/Report";
 import Loading from "./pages/Loading";
 import Error from "./pages/Error";
 import { FetchState, WindowRef } from "../constants/Types";
@@ -9,25 +10,43 @@ import { FetchState, WindowRef } from "../constants/Types";
 export const stateContext = createContext<any>(null);
 
 const App = () => {
-  const [sigReqReport, setSigReqReport] = useState<SignatureRequestReport>();
+  const [sigReqReports, setReports] = useState<SignatureRequestReport[]>([]);
+  const [currentReportIndex, setCurrentReportIndex] = useState<number>(0);
   const [reportState, setReportState] = useState(FetchState.Loading);
 
   useEffect(() => {
-    getSigReqReport()
-      .then((r) => {
-        setSigReqReport(r);
-        setReportState(!r || r.error ? FetchState.Failed : FetchState.Loaded);
-      })
-      .catch(() => {
-        setReportState(FetchState.Failed);
+    const failure = () => {
+      setReportState(FetchState.Failed);
+    };
+    const success = (r: SignatureRequestReport) => {
+      setReports((prev) => {
+        const updated = [...prev, r];
+        setCurrentReportIndex(updated.length - 1);
+        return updated;
       });
+      setReportState(!r || r.error ? FetchState.Failed : FetchState.Loaded);
+    };
+    addReportListener(success, failure);
+    getInitialReport();
   }, []);
+
+  function setReportIndex(n: number) {
+    if (n >= 0 && n < sigReqReports.length) {
+      setCurrentReportIndex(n);
+    }
+  }
 
   function screen() {
     if (reportState === FetchState.Failed) {
-      return <Error error={sigReqReport?.error} />;
+      return <Error error={sigReqReports[currentReportIndex]?.error} />;
     } else if (reportState === FetchState.Loaded) {
-      return <Home {...sigReqReport!} />;
+      return (
+        <Report
+          reports={sigReqReports}
+          current={currentReportIndex}
+          setCurrent={setReportIndex}
+        />
+      );
     } else if (reportState === FetchState.Loading) {
       return <Loading />;
     }

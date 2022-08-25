@@ -13,12 +13,15 @@ export default class MeshedAPI {
     report: SignatureRequestReport,
     message: string
   ) {
-    const reportInput: SignatureRequestReportInput = {
-      ...report,
-      addressContexts: JSON.stringify(report.addressContexts),
-    } as SignatureRequestReportInput;
-
-    reportInput.actionContext.data = JSON.stringify(report.actionContext.data);
+    let reportInput = { ...report } as SignatureRequestReportInput;
+    if (reportInput && Object.keys(reportInput).length) {
+      reportInput.addressContexts = JSON.stringify(report.addressContexts);
+      if (reportInput.actionContext) {
+        reportInput.actionContext.data = JSON.stringify(
+          report.actionContext.data
+        );
+      }
+    }
 
     return this.fetchGraphQL(createFraudReport, {
       input: { message: message, report: reportInput },

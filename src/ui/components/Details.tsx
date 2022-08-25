@@ -1,33 +1,17 @@
 // import NextPage generic type
-import { AddressContext, SignatureRequestReport } from "../../constants/API";
-import DetailsContract from "./DetailsAddress";
+import { SignatureRequestReport } from "../../constants/API";
 import DetailsRequester from "./DetailsRequester";
 import { useEffect } from "react";
 
 import Footer from "./Footer";
 import DetailOutcome from "./DetailsOutcome";
-import { updateWindow } from "./UIHelper";
+import { getAddressContexts, updateWindow } from "./UIHelper";
 import { WindowRef } from "../../constants/Types";
 
-const Details = (signatureRequestReport: SignatureRequestReport) => {
+const Details = (sigRequestReport: SignatureRequestReport) => {
   useEffect(() => {
     updateWindow(WindowRef.root);
   });
-
-  function addressContexts() {
-    if (!!signatureRequestReport.addressContexts) {
-      return Object.values(signatureRequestReport.addressContexts).map(
-        (context: AddressContext, index: number) => (
-          <div className="w-full" key={index}>
-            <DetailsContract
-              addressContext={context}
-              sigRequestReport={signatureRequestReport}
-            />
-          </div>
-        )
-      );
-    }
-  }
 
   return (
     <>
@@ -37,13 +21,13 @@ const Details = (signatureRequestReport: SignatureRequestReport) => {
             <h1 className="font-semibold text-base text-slate-600">
               Signature Details
             </h1>
-            <DetailsRequester {...signatureRequestReport} />
-            <DetailOutcome {...signatureRequestReport} />
-            {addressContexts()}
+            <DetailsRequester {...sigRequestReport} />
+            <DetailOutcome {...sigRequestReport} />
+            {getAddressContexts(sigRequestReport)}
           </div>
         </div>
       </div>
-      <Footer {...signatureRequestReport} />
+      <Footer {...sigRequestReport} />
     </>
   );
 };
