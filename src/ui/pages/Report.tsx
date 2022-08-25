@@ -3,30 +3,29 @@
 import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
 import { SignatureRequestReport } from "../../constants/API";
 
-import Nav from "../components/Nav";
+import ReportNav from "../components/ReportNav";
 import Details from "../components/Details";
-import Report from "../components/Report";
+import Notify from "../components/Notify";
 import Summary from "../components/Summary";
 
-const Home = (signatureRequestReport: SignatureRequestReport) => {
+const Report = (props: {
+  reports: SignatureRequestReport[];
+  current: number;
+  setCurrent: { (n: number): void };
+}) => {
+  const report = props.reports[props.current];
   return (
     <div className="w-full h-[592px] bg-gradient-to-t from-black via-black to-slate-900  shadow-gray-900/50 rounded-b-xl border-[0.25px] border-slate-700 overflow-y-visible">
       <Router>
-        <Nav />
+        <ReportNav {...props} />
         <Routes>
-          <Route path="/" element={<Summary {...signatureRequestReport} />} />
-          <Route
-            path="details"
-            element={<Details {...signatureRequestReport} />}
-          />
-          <Route
-            path="report"
-            element={<Report {...signatureRequestReport} />}
-          />
+          <Route path="/" element={<Summary {...report} />} />
+          <Route path="details" element={<Details {...report} />} />
+          <Route path="notify" element={<Notify {...report} />} />
         </Routes>
       </Router>
     </div>
   );
 };
 
-export default Home;
+export default Report;

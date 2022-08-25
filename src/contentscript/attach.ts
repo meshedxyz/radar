@@ -9,7 +9,6 @@ import {
 
 let radarProxy: any;
 let provider = (window as any).ethereum;
-
 const channelName = document.currentScript?.getAttribute("channelName")!;
 document.currentScript?.setAttribute("channelName", "");
 const channel = new AttachedMessageChannel(channelName);

@@ -28,23 +28,11 @@ const TrustList = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-t from-slate-900 via-slate-800 to-slate-800 shadow-xl shadow-gray-900/50 border-[0.25px] border-slate-700">
-      <div className="w-[377px] h-full px-4 pt-3 font-display overflow-y-scroll overflow-x-hidden">
-        <div className="flex justify-between">
-          <h1 className="flex text-xl font-bold justify-start text-slate-300 tracking-wider mr-3">
-            Trust List
-          </h1>
-
-          <NavLink to="/">
-            <Icons
-              id={iconStates.Back}
-              classDetails="w-5 h-5 self-center hover:text-slate-300 text-slate-400"
-            />
-          </NavLink>
-        </div>
-        <div className="flex pt-2 justify-between font-body text-slate-600 border-b border-b-slate-700 mr-3">
-          <a className="font-body italic cursor-default">Domain</a>
-          <a className="font-body italic cursor-default">Hide/Show</a>
+    <div className="w-full  bg-gradient-to-tr from-black to-slate-900 shadow-xl shadow-gray-900/50 border-[0.25px] border-slate-700">
+      <div className="w-[377px] h-[440px] px-4 pt-3 font-display overflow-y-scroll overflow-x-hidden">
+        <div className="flex pt-2 justify-between font-medium text-slate-300 border-b border-b-slate-700 text-sm ">
+          <a className="cursor-default">Domain</a>
+          <a className="cursor-default">Hide/Show</a>
         </div>
         {trustList && Object.keys(trustList).length ? (
           Object.keys(trustList!).map((domain, index) => {
@@ -53,7 +41,7 @@ const TrustList = () => {
                 key={index}
                 className="flex pt-2 justify-between font-body text-slate-400"
               >
-                <a className="font-body text-sm">{domain}</a>
+                <a className="font-body text-sm cursor-default">{domain}</a>
                 <div className="flex flex-wrap">
                   <label
                     htmlFor={domain}

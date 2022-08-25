@@ -21,7 +21,7 @@ const Footer = (signatureRequestReport: SignatureRequestReport) => {
   return (
     <div className="w-full">
       <div
-        className="flex justify-center w-full pt-4 pb-3 space-x-5 border-t-2 border-slate-800 bg-black"
+        className="flex justify-center w-full pt-2 pb-2 space-x-5 border-t-2 border-slate-900 bg-black"
         id="cta"
       >
         <button

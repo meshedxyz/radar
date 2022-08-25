@@ -1,3 +1,5 @@
+import { RPCSignatureRequestInput, SignatureRequestReport } from "./API";
+
 export interface TabProviderInfo {
   isMetaMask?: boolean;
   isStatus?: boolean;
@@ -49,27 +51,42 @@ export enum FetchState {
   Failed,
 }
 
+export interface HistoricalSignatureRequestReport {
+  date: number;
+  report: SignatureRequestReport;
+  key: string;
+  req: RPCSignatureRequestInput;
+}
+
+export interface SignatureRequestReportHandler {
+  (report: SignatureRequestReport): void;
+}
+
 export enum WindowRef {
   root = "root",
-  body = "body"
+  body = "body",
 }
 
 export const RADAR_EVENT = "radar-event";
 export const SUBMIT_REPORT_REQUEST = "submit-report";
-export const GET_SIG_REQ_REPORT = "get-signature-request-report";
+export const GET_SIGNATURE_REQUEST_REPORT = "get-signature-request-report";
+export const NEW_SIG_REQ_REPORT = "new-signature-request-report";
 export const GET_TRUST_LIST = "get-trust-list";
 export const UPDATE_TRUST_LIST = "update-trust-list";
 export const REMOVE_FROM_TRUST_LIST = "remove-from-trust-list";
-export const GET_IS_FTU = "get-is-first-time-user";
-export const SET_IS_FTU = "set-is-first-time-user";
-export const ETHEREUM_REQUEST = "linked-ethereum-rpc-request";
-export const ETHEREUM_EVENT = "linked-ethereum-event";
-export const FTUE_STORAGE_KEY = "radar-first-time-user";
+export const GET_REPORT_HISTORY = "get-report-history";
+export const REMOVE_FROM_HISTORY = "remove-from-history";
+export const GET_FTUE_COMPLETED = "is-first-time-user-experience-completed";
+export const SET_FTUE_COMPLETED = "set-first-time-user-completed";
+
+export const FTUE_STORAGE_KEY = "radar-first-time-user-completed";
 export const REVOKE = "Revoke";
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const ZERO_HASH =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
+
+export const POPUP_FAILURE_TIMEOUT = 15000;
 
 export const UINT256_MAX =
   "115792089237316195423570985008687907853269984665640564039457584007913129639935";
@@ -78,6 +95,9 @@ export const ADDRESS_CHARACTER_LENGTH = 42;
 export const POPUP_WIDTH = 382;
 export const POPUP_HEIGHT = 310;
 export const METAMASK_WALLET_WIDTH = 382;
+export const REPORT_HISTORY_PAGE_SIZE = 20;
+
+export const REPORT_ID_SEARCH_PARAM = "reportId";
 
 export const PROXIED_FUNCTIONS = new Set(["request", "sendAsync", "send"]);
 export const RADAR_METHODS = new Set([
@@ -107,6 +127,5 @@ export const CHAIN_ID_TO_BLOCKSCAN_ENDPOINTS: { [key: string]: string } = {
   "137": "https://polygonscan.com",
   "250": "https://ftmscan.com",
   "42161": "https://arbiscan.io",
-  "43114": "https://snowtrace.io"
-}
-
+  "43114": "https://snowtrace.io",
+};
